@@ -70,6 +70,37 @@ class RelyingpartyResource_ {
   }
 
   /**
+   * Batch download user accounts.
+   *
+   * [request] - IdentitytoolkitRelyingpartyDownloadAccountRequest to send in this request
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<DownloadAccountResponse> downloadAccount(IdentitytoolkitRelyingpartyDownloadAccountRequest request, {core.Map optParams}) {
+    var url = "downloadAccount";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "POST", body: request.toString(), urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new DownloadAccountResponse.fromJson(data));
+  }
+
+  /**
    * Returns the account info.
    *
    * [request] - IdentitytoolkitRelyingpartyGetAccountInfoRequest to send in this request

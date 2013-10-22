@@ -9,6 +9,9 @@ class CreateAuthUriResponse {
   /** The fixed string identitytoolkit#CreateAuthUriResponse". */
   core.String kind;
 
+  /** The provider ID of the auth URI. */
+  core.String providerId;
+
   /** Existing IDP's for the user. */
   core.List<core.String> providers;
 
@@ -22,6 +25,9 @@ class CreateAuthUriResponse {
     }
     if (json.containsKey("kind")) {
       kind = json["kind"];
+    }
+    if (json.containsKey("providerId")) {
+      providerId = json["providerId"];
     }
     if (json.containsKey("providers")) {
       providers = json["providers"].toList();
@@ -41,6 +47,9 @@ class CreateAuthUriResponse {
     if (kind != null) {
       output["kind"] = kind;
     }
+    if (providerId != null) {
+      output["providerId"] = providerId;
+    }
     if (providers != null) {
       output["providers"] = providers.toList();
     }
@@ -52,7 +61,7 @@ class CreateAuthUriResponse {
   }
 
   /** Return String representation of CreateAuthUriResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -81,7 +90,54 @@ class DeleteAccountResponse {
   }
 
   /** Return String representation of DeleteAccountResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** Respone of downloading accounts in batch. */
+class DownloadAccountResponse {
+
+  /** The user accounts data. */
+  core.List<core.Object> accounts;
+
+  /** The fixed string "identitytoolkit#DownloadAccountResponse". */
+  core.String kind;
+
+  /** The next page token. To be used in a subsequent request to return the next page of results. */
+  core.String nextPageToken;
+
+  /** Create new DownloadAccountResponse from JSON data */
+  DownloadAccountResponse.fromJson(core.Map json) {
+    if (json.containsKey("accounts")) {
+      accounts = json["accounts"].toList();
+    }
+    if (json.containsKey("kind")) {
+      kind = json["kind"];
+    }
+    if (json.containsKey("nextPageToken")) {
+      nextPageToken = json["nextPageToken"];
+    }
+  }
+
+  /** Create JSON Object for DownloadAccountResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (accounts != null) {
+      output["accounts"] = accounts.toList();
+    }
+    if (kind != null) {
+      output["kind"] = kind;
+    }
+    if (nextPageToken != null) {
+      output["nextPageToken"] = nextPageToken;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of DownloadAccountResponse */
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -119,7 +175,7 @@ class GetAccountInfoResponse {
   }
 
   /** Return String representation of GetAccountInfoResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -144,7 +200,7 @@ class GetAccountInfoResponseUsers {
   core.String password;
 
   /** The timestamp when the password was last updated. */
-  core.int passwordUpdatedAt;
+  core.num passwordUpdatedAt;
 
   /** The URL of the user profile photo. */
   core.String photoUrl;
@@ -182,7 +238,7 @@ class GetAccountInfoResponseUsers {
       password = json["password"];
     }
     if (json.containsKey("passwordUpdatedAt")) {
-      passwordUpdatedAt = (json["passwordUpdatedAt"] is core.String) ? core.int.parse(json["passwordUpdatedAt"]) : json["passwordUpdatedAt"];
+      passwordUpdatedAt = json["passwordUpdatedAt"];
     }
     if (json.containsKey("photoUrl")) {
       photoUrl = json["photoUrl"];
@@ -246,7 +302,7 @@ class GetAccountInfoResponseUsers {
   }
 
   /** Return String representation of GetAccountInfoResponseUsers */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -292,7 +348,7 @@ class GetAccountInfoResponseUsersProviderUserInfo {
   }
 
   /** Return String representation of GetAccountInfoResponseUsersProviderUserInfo */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -330,12 +386,15 @@ class GetOobConfirmationCodeResponse {
   }
 
   /** Return String representation of GetOobConfirmationCodeResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
 /** Request to get the IDP authentication URL. */
 class IdentitytoolkitRelyingpartyCreateAuthUriRequest {
+
+  /** The app ID of the mobile app, base64(CERT_SHA1):PACKAGE_NAME for Android, BUNDLE_ID for iOS. */
+  core.String appId;
 
   /** The relying party OAuth client ID. */
   core.String clientId;
@@ -352,11 +411,17 @@ class IdentitytoolkitRelyingpartyCreateAuthUriRequest {
   /** Optional realm for OpenID protocol. The sub string "scheme://domain:port" of the param "continueUri" is used if this is not set. */
   core.String openidRealm;
 
+  /** The native app package for OTA installation. */
+  core.String otaApp;
+
   /** The IdP ID. For white listed IdPs it's a short domain name e.g. google.com, aol.com, live.net and yahoo.com. For other OpenID IdPs it's the OP identifier. */
   core.String providerId;
 
   /** Create new IdentitytoolkitRelyingpartyCreateAuthUriRequest from JSON data */
   IdentitytoolkitRelyingpartyCreateAuthUriRequest.fromJson(core.Map json) {
+    if (json.containsKey("appId")) {
+      appId = json["appId"];
+    }
     if (json.containsKey("clientId")) {
       clientId = json["clientId"];
     }
@@ -372,6 +437,9 @@ class IdentitytoolkitRelyingpartyCreateAuthUriRequest {
     if (json.containsKey("openidRealm")) {
       openidRealm = json["openidRealm"];
     }
+    if (json.containsKey("otaApp")) {
+      otaApp = json["otaApp"];
+    }
     if (json.containsKey("providerId")) {
       providerId = json["providerId"];
     }
@@ -381,6 +449,9 @@ class IdentitytoolkitRelyingpartyCreateAuthUriRequest {
   core.Map toJson() {
     var output = new core.Map();
 
+    if (appId != null) {
+      output["appId"] = appId;
+    }
     if (clientId != null) {
       output["clientId"] = clientId;
     }
@@ -396,6 +467,9 @@ class IdentitytoolkitRelyingpartyCreateAuthUriRequest {
     if (openidRealm != null) {
       output["openidRealm"] = openidRealm;
     }
+    if (otaApp != null) {
+      output["otaApp"] = otaApp;
+    }
     if (providerId != null) {
       output["providerId"] = providerId;
     }
@@ -404,7 +478,7 @@ class IdentitytoolkitRelyingpartyCreateAuthUriRequest {
   }
 
   /** Return String representation of IdentitytoolkitRelyingpartyCreateAuthUriRequest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -433,7 +507,45 @@ class IdentitytoolkitRelyingpartyDeleteAccountRequest {
   }
 
   /** Return String representation of IdentitytoolkitRelyingpartyDeleteAccountRequest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+/** Request to download user account in batch. */
+class IdentitytoolkitRelyingpartyDownloadAccountRequest {
+
+  /** The max number of results to return in the response. */
+  core.int maxResults;
+
+  /** The token for the next page. This should be taken from the previous response. */
+  core.String nextPageToken;
+
+  /** Create new IdentitytoolkitRelyingpartyDownloadAccountRequest from JSON data */
+  IdentitytoolkitRelyingpartyDownloadAccountRequest.fromJson(core.Map json) {
+    if (json.containsKey("maxResults")) {
+      maxResults = json["maxResults"];
+    }
+    if (json.containsKey("nextPageToken")) {
+      nextPageToken = json["nextPageToken"];
+    }
+  }
+
+  /** Create JSON Object for IdentitytoolkitRelyingpartyDownloadAccountRequest */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (maxResults != null) {
+      output["maxResults"] = maxResults;
+    }
+    if (nextPageToken != null) {
+      output["nextPageToken"] = nextPageToken;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of IdentitytoolkitRelyingpartyDownloadAccountRequest */
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -480,7 +592,7 @@ class IdentitytoolkitRelyingpartyGetAccountInfoRequest {
   }
 
   /** Return String representation of IdentitytoolkitRelyingpartyGetAccountInfoRequest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -536,7 +648,7 @@ class IdentitytoolkitRelyingpartyResetPasswordRequest {
   }
 
   /** Return String representation of IdentitytoolkitRelyingpartyResetPasswordRequest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -637,7 +749,7 @@ class IdentitytoolkitRelyingpartySetAccountInfoRequest {
   }
 
   /** Return String representation of IdentitytoolkitRelyingpartySetAccountInfoRequest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -706,7 +818,7 @@ class IdentitytoolkitRelyingpartyUploadAccountRequest {
   }
 
   /** Return String representation of IdentitytoolkitRelyingpartyUploadAccountRequest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -753,7 +865,7 @@ class IdentitytoolkitRelyingpartyVerifyAssertionRequest {
   }
 
   /** Return String representation of IdentitytoolkitRelyingpartyVerifyAssertionRequest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -800,7 +912,7 @@ class IdentitytoolkitRelyingpartyVerifyPasswordRequest {
   }
 
   /** Return String representation of IdentitytoolkitRelyingpartyVerifyPasswordRequest */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -892,7 +1004,7 @@ class Relyingparty {
   }
 
   /** Return String representation of Relyingparty */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -930,7 +1042,7 @@ class ResetPasswordResponse {
   }
 
   /** Return String representation of ResetPasswordResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -943,11 +1055,14 @@ class SetAccountInfoResponse {
   /** The email of the user. */
   core.String email;
 
+  /** The Gitkit id token to login the newly sign up user. */
+  core.String idToken;
+
   /** The fixed string "identitytoolkit#SetAccountInfoResponse". */
   core.String kind;
 
-  /** The associated IDPs of the user. */
-  core.List<core.String> provider;
+  /** The user's profiles at the associated IdPs. */
+  core.List<SetAccountInfoResponseProviderUserInfo> providerUserInfo;
 
   /** Create new SetAccountInfoResponse from JSON data */
   SetAccountInfoResponse.fromJson(core.Map json) {
@@ -957,11 +1072,14 @@ class SetAccountInfoResponse {
     if (json.containsKey("email")) {
       email = json["email"];
     }
+    if (json.containsKey("idToken")) {
+      idToken = json["idToken"];
+    }
     if (json.containsKey("kind")) {
       kind = json["kind"];
     }
-    if (json.containsKey("provider")) {
-      provider = json["provider"].toList();
+    if (json.containsKey("providerUserInfo")) {
+      providerUserInfo = json["providerUserInfo"].map((providerUserInfoItem) => new SetAccountInfoResponseProviderUserInfo.fromJson(providerUserInfoItem)).toList();
     }
   }
 
@@ -975,18 +1093,67 @@ class SetAccountInfoResponse {
     if (email != null) {
       output["email"] = email;
     }
+    if (idToken != null) {
+      output["idToken"] = idToken;
+    }
     if (kind != null) {
       output["kind"] = kind;
     }
-    if (provider != null) {
-      output["provider"] = provider.toList();
+    if (providerUserInfo != null) {
+      output["providerUserInfo"] = providerUserInfo.map((providerUserInfoItem) => providerUserInfoItem.toJson()).toList();
     }
 
     return output;
   }
 
   /** Return String representation of SetAccountInfoResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+class SetAccountInfoResponseProviderUserInfo {
+
+  /** The user's display name at the IDP. */
+  core.String displayName;
+
+  /** The user's photo url at the IDP. */
+  core.String photoUrl;
+
+  /** The IdP ID. For whitelisted IdPs it's a short domain name, e.g., google.com, aol.com, live.net and yahoo.com. For other OpenID IdPs it's the OP identifier. */
+  core.String providerId;
+
+  /** Create new SetAccountInfoResponseProviderUserInfo from JSON data */
+  SetAccountInfoResponseProviderUserInfo.fromJson(core.Map json) {
+    if (json.containsKey("displayName")) {
+      displayName = json["displayName"];
+    }
+    if (json.containsKey("photoUrl")) {
+      photoUrl = json["photoUrl"];
+    }
+    if (json.containsKey("providerId")) {
+      providerId = json["providerId"];
+    }
+  }
+
+  /** Create JSON Object for SetAccountInfoResponseProviderUserInfo */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (displayName != null) {
+      output["displayName"] = displayName;
+    }
+    if (photoUrl != null) {
+      output["photoUrl"] = photoUrl;
+    }
+    if (providerId != null) {
+      output["providerId"] = providerId;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of SetAccountInfoResponseProviderUserInfo */
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1024,7 +1191,7 @@ class UploadAccountResponse {
   }
 
   /** Return String representation of UploadAccountResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1061,7 +1228,7 @@ class UploadAccountResponseError {
   }
 
   /** Return String representation of UploadAccountResponseError */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1126,7 +1293,7 @@ class Userinfo {
   }
 
   /** Return String representation of Userinfo */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1135,6 +1302,12 @@ class VerifyAssertionResponse {
 
   /** The action code. */
   core.String action;
+
+  /** URL for OTA app installation. */
+  core.String appInstallationUrl;
+
+  /** The custom scheme used by mobile app. */
+  core.String appScheme;
 
   /** The opaque value used by the client to maintain context info between the authentication request and the IDP callback. */
   core.String context;
@@ -1181,6 +1354,9 @@ class VerifyAssertionResponse {
   /** The RP local ID if it's already been mapped to the IdP account identified by the federated ID. */
   core.String localId;
 
+  /** Whether the assertion is from a non-trusted IDP and need account linking confirmation. */
+  core.bool needConfirmation;
+
   /** The nick name of the user. */
   core.String nickName;
 
@@ -1209,6 +1385,12 @@ class VerifyAssertionResponse {
   VerifyAssertionResponse.fromJson(core.Map json) {
     if (json.containsKey("action")) {
       action = json["action"];
+    }
+    if (json.containsKey("appInstallationUrl")) {
+      appInstallationUrl = json["appInstallationUrl"];
+    }
+    if (json.containsKey("appScheme")) {
+      appScheme = json["appScheme"];
     }
     if (json.containsKey("context")) {
       context = json["context"];
@@ -1255,6 +1437,9 @@ class VerifyAssertionResponse {
     if (json.containsKey("localId")) {
       localId = json["localId"];
     }
+    if (json.containsKey("needConfirmation")) {
+      needConfirmation = json["needConfirmation"];
+    }
     if (json.containsKey("nickName")) {
       nickName = json["nickName"];
     }
@@ -1287,6 +1472,12 @@ class VerifyAssertionResponse {
 
     if (action != null) {
       output["action"] = action;
+    }
+    if (appInstallationUrl != null) {
+      output["appInstallationUrl"] = appInstallationUrl;
+    }
+    if (appScheme != null) {
+      output["appScheme"] = appScheme;
     }
     if (context != null) {
       output["context"] = context;
@@ -1333,6 +1524,9 @@ class VerifyAssertionResponse {
     if (localId != null) {
       output["localId"] = localId;
     }
+    if (needConfirmation != null) {
+      output["needConfirmation"] = needConfirmation;
+    }
     if (nickName != null) {
       output["nickName"] = nickName;
     }
@@ -1362,7 +1556,7 @@ class VerifyAssertionResponse {
   }
 
   /** Return String representation of VerifyAssertionResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
@@ -1436,7 +1630,7 @@ class VerifyPasswordResponse {
   }
 
   /** Return String representation of VerifyPasswordResponse */
-  core.String toString() => JSON.stringify(this.toJson());
+  core.String toString() => JSON.encode(this.toJson());
 
 }
 
