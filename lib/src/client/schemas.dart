@@ -97,25 +97,25 @@ class DeleteAccountResponse {
 /** Respone of downloading accounts in batch. */
 class DownloadAccountResponse {
 
-  /** The user accounts data. */
-  core.List<core.Object> accounts;
-
   /** The fixed string "identitytoolkit#DownloadAccountResponse". */
   core.String kind;
 
   /** The next page token. To be used in a subsequent request to return the next page of results. */
   core.String nextPageToken;
 
+  /** The user accounts data. */
+  core.List<UserInfo> users;
+
   /** Create new DownloadAccountResponse from JSON data */
   DownloadAccountResponse.fromJson(core.Map json) {
-    if (json.containsKey("accounts")) {
-      accounts = json["accounts"].toList();
-    }
     if (json.containsKey("kind")) {
       kind = json["kind"];
     }
     if (json.containsKey("nextPageToken")) {
       nextPageToken = json["nextPageToken"];
+    }
+    if (json.containsKey("users")) {
+      users = json["users"].map((usersItem) => new UserInfo.fromJson(usersItem)).toList();
     }
   }
 
@@ -123,14 +123,14 @@ class DownloadAccountResponse {
   core.Map toJson() {
     var output = new core.Map();
 
-    if (accounts != null) {
-      output["accounts"] = accounts.toList();
-    }
     if (kind != null) {
       output["kind"] = kind;
     }
     if (nextPageToken != null) {
       output["nextPageToken"] = nextPageToken;
+    }
+    if (users != null) {
+      output["users"] = users.map((usersItem) => usersItem.toJson()).toList();
     }
 
     return output;
@@ -148,7 +148,7 @@ class GetAccountInfoResponse {
   core.String kind;
 
   /** The info of the users. */
-  core.List<GetAccountInfoResponseUsers> users;
+  core.List<UserInfo> users;
 
   /** Create new GetAccountInfoResponse from JSON data */
   GetAccountInfoResponse.fromJson(core.Map json) {
@@ -156,7 +156,7 @@ class GetAccountInfoResponse {
       kind = json["kind"];
     }
     if (json.containsKey("users")) {
-      users = json["users"].map((usersItem) => new GetAccountInfoResponseUsers.fromJson(usersItem)).toList();
+      users = json["users"].map((usersItem) => new UserInfo.fromJson(usersItem)).toList();
     }
   }
 
@@ -175,179 +175,6 @@ class GetAccountInfoResponse {
   }
 
   /** Return String representation of GetAccountInfoResponse */
-  core.String toString() => JSON.encode(this.toJson());
-
-}
-
-class GetAccountInfoResponseUsers {
-
-  /** The user's date of birth. */
-  core.String dateOfBirth;
-
-  /** The name of the user. */
-  core.String displayName;
-
-  /** The email returned by the IdP. NOTE: The federated login user may not own the email. */
-  core.String email;
-
-  /** The language of the user. */
-  core.String language;
-
-  /** The local ID of the user. */
-  core.String localId;
-
-  /** The user's hashed password. */
-  core.String password;
-
-  /** The timestamp when the password was last updated. */
-  core.num passwordUpdatedAt;
-
-  /** The URL of the user profile photo. */
-  core.String photoUrl;
-
-  /** The IDP of the user. */
-  core.List<GetAccountInfoResponseUsersProviderUserInfo> providerUserInfo;
-
-  /** The user's password salt. */
-  core.String salt;
-
-  /** The time zone of the user. */
-  core.String timeZone;
-
-  /** Version of the user's password. */
-  core.int version;
-
-  /** Create new GetAccountInfoResponseUsers from JSON data */
-  GetAccountInfoResponseUsers.fromJson(core.Map json) {
-    if (json.containsKey("dateOfBirth")) {
-      dateOfBirth = json["dateOfBirth"];
-    }
-    if (json.containsKey("displayName")) {
-      displayName = json["displayName"];
-    }
-    if (json.containsKey("email")) {
-      email = json["email"];
-    }
-    if (json.containsKey("language")) {
-      language = json["language"];
-    }
-    if (json.containsKey("localId")) {
-      localId = json["localId"];
-    }
-    if (json.containsKey("password")) {
-      password = json["password"];
-    }
-    if (json.containsKey("passwordUpdatedAt")) {
-      passwordUpdatedAt = json["passwordUpdatedAt"];
-    }
-    if (json.containsKey("photoUrl")) {
-      photoUrl = json["photoUrl"];
-    }
-    if (json.containsKey("providerUserInfo")) {
-      providerUserInfo = json["providerUserInfo"].map((providerUserInfoItem) => new GetAccountInfoResponseUsersProviderUserInfo.fromJson(providerUserInfoItem)).toList();
-    }
-    if (json.containsKey("salt")) {
-      salt = json["salt"];
-    }
-    if (json.containsKey("timeZone")) {
-      timeZone = json["timeZone"];
-    }
-    if (json.containsKey("version")) {
-      version = json["version"];
-    }
-  }
-
-  /** Create JSON Object for GetAccountInfoResponseUsers */
-  core.Map toJson() {
-    var output = new core.Map();
-
-    if (dateOfBirth != null) {
-      output["dateOfBirth"] = dateOfBirth;
-    }
-    if (displayName != null) {
-      output["displayName"] = displayName;
-    }
-    if (email != null) {
-      output["email"] = email;
-    }
-    if (language != null) {
-      output["language"] = language;
-    }
-    if (localId != null) {
-      output["localId"] = localId;
-    }
-    if (password != null) {
-      output["password"] = password;
-    }
-    if (passwordUpdatedAt != null) {
-      output["passwordUpdatedAt"] = passwordUpdatedAt;
-    }
-    if (photoUrl != null) {
-      output["photoUrl"] = photoUrl;
-    }
-    if (providerUserInfo != null) {
-      output["providerUserInfo"] = providerUserInfo.map((providerUserInfoItem) => providerUserInfoItem.toJson()).toList();
-    }
-    if (salt != null) {
-      output["salt"] = salt;
-    }
-    if (timeZone != null) {
-      output["timeZone"] = timeZone;
-    }
-    if (version != null) {
-      output["version"] = version;
-    }
-
-    return output;
-  }
-
-  /** Return String representation of GetAccountInfoResponseUsers */
-  core.String toString() => JSON.encode(this.toJson());
-
-}
-
-class GetAccountInfoResponseUsersProviderUserInfo {
-
-  /** The user's display name at the IDP. */
-  core.String displayName;
-
-  /** The user's photo url at the IDP. */
-  core.String photoUrl;
-
-  /** The IdP ID. For white listed IdPs it's a short domain name, e.g., google.com, aol.com, live.net and yahoo.com. For other OpenID IdPs it's the OP identifier. */
-  core.String providerId;
-
-  /** Create new GetAccountInfoResponseUsersProviderUserInfo from JSON data */
-  GetAccountInfoResponseUsersProviderUserInfo.fromJson(core.Map json) {
-    if (json.containsKey("displayName")) {
-      displayName = json["displayName"];
-    }
-    if (json.containsKey("photoUrl")) {
-      photoUrl = json["photoUrl"];
-    }
-    if (json.containsKey("providerId")) {
-      providerId = json["providerId"];
-    }
-  }
-
-  /** Create JSON Object for GetAccountInfoResponseUsersProviderUserInfo */
-  core.Map toJson() {
-    var output = new core.Map();
-
-    if (displayName != null) {
-      output["displayName"] = displayName;
-    }
-    if (photoUrl != null) {
-      output["photoUrl"] = photoUrl;
-    }
-    if (providerId != null) {
-      output["providerId"] = providerId;
-    }
-
-    return output;
-  }
-
-  /** Return String representation of GetAccountInfoResponseUsersProviderUserInfo */
   core.String toString() => JSON.encode(this.toJson());
 
 }
@@ -655,6 +482,12 @@ class IdentitytoolkitRelyingpartyResetPasswordRequest {
 /** Request to set the account information. */
 class IdentitytoolkitRelyingpartySetAccountInfoRequest {
 
+  /** The captcha challenge. */
+  core.String captchaChallenge;
+
+  /** Response to the captcha. */
+  core.String captchaResponse;
+
   /** The name of the user. */
   core.String displayName;
 
@@ -684,6 +517,12 @@ class IdentitytoolkitRelyingpartySetAccountInfoRequest {
 
   /** Create new IdentitytoolkitRelyingpartySetAccountInfoRequest from JSON data */
   IdentitytoolkitRelyingpartySetAccountInfoRequest.fromJson(core.Map json) {
+    if (json.containsKey("captchaChallenge")) {
+      captchaChallenge = json["captchaChallenge"];
+    }
+    if (json.containsKey("captchaResponse")) {
+      captchaResponse = json["captchaResponse"];
+    }
     if (json.containsKey("displayName")) {
       displayName = json["displayName"];
     }
@@ -717,6 +556,12 @@ class IdentitytoolkitRelyingpartySetAccountInfoRequest {
   core.Map toJson() {
     var output = new core.Map();
 
+    if (captchaChallenge != null) {
+      output["captchaChallenge"] = captchaChallenge;
+    }
+    if (captchaResponse != null) {
+      output["captchaResponse"] = captchaResponse;
+    }
     if (displayName != null) {
       output["displayName"] = displayName;
     }
@@ -767,7 +612,7 @@ class IdentitytoolkitRelyingpartyUploadAccountRequest {
   core.String signerKey;
 
   /** The account info to be stored. */
-  core.List<Userinfo> userAccount;
+  core.List<UserInfo> users;
 
   /** Create new IdentitytoolkitRelyingpartyUploadAccountRequest from JSON data */
   IdentitytoolkitRelyingpartyUploadAccountRequest.fromJson(core.Map json) {
@@ -786,8 +631,8 @@ class IdentitytoolkitRelyingpartyUploadAccountRequest {
     if (json.containsKey("signerKey")) {
       signerKey = json["signerKey"];
     }
-    if (json.containsKey("userAccount")) {
-      userAccount = json["userAccount"].map((userAccountItem) => new Userinfo.fromJson(userAccountItem)).toList();
+    if (json.containsKey("users")) {
+      users = json["users"].map((usersItem) => new UserInfo.fromJson(usersItem)).toList();
     }
   }
 
@@ -810,8 +655,8 @@ class IdentitytoolkitRelyingpartyUploadAccountRequest {
     if (signerKey != null) {
       output["signerKey"] = signerKey;
     }
-    if (userAccount != null) {
-      output["userAccount"] = userAccount.map((userAccountItem) => userAccountItem.toJson()).toList();
+    if (users != null) {
+      output["users"] = users.map((usersItem) => usersItem.toJson()).toList();
     }
 
     return output;
@@ -872,6 +717,12 @@ class IdentitytoolkitRelyingpartyVerifyAssertionRequest {
 /** Request to verify the password. */
 class IdentitytoolkitRelyingpartyVerifyPasswordRequest {
 
+  /** The captcha challenge. */
+  core.String captchaChallenge;
+
+  /** Response to the captcha. */
+  core.String captchaResponse;
+
   /** The email of the user. */
   core.String email;
 
@@ -883,6 +734,12 @@ class IdentitytoolkitRelyingpartyVerifyPasswordRequest {
 
   /** Create new IdentitytoolkitRelyingpartyVerifyPasswordRequest from JSON data */
   IdentitytoolkitRelyingpartyVerifyPasswordRequest.fromJson(core.Map json) {
+    if (json.containsKey("captchaChallenge")) {
+      captchaChallenge = json["captchaChallenge"];
+    }
+    if (json.containsKey("captchaResponse")) {
+      captchaResponse = json["captchaResponse"];
+    }
     if (json.containsKey("email")) {
       email = json["email"];
     }
@@ -898,6 +755,12 @@ class IdentitytoolkitRelyingpartyVerifyPasswordRequest {
   core.Map toJson() {
     var output = new core.Map();
 
+    if (captchaChallenge != null) {
+      output["captchaChallenge"] = captchaChallenge;
+    }
+    if (captchaResponse != null) {
+      output["captchaResponse"] = captchaResponse;
+    }
     if (email != null) {
       output["email"] = email;
     }
@@ -1233,66 +1096,166 @@ class UploadAccountResponseError {
 }
 
 /** Template for an individual account info. */
-class Userinfo {
+class UserInfo {
 
-  /** email */
+  /** The name of the user. */
+  core.String displayName;
+
+  /** The email of the user. */
   core.String email;
 
-  /** Identifies this object as a user info. */
-  core.String kind;
+  /** Whether the email has been verified. */
+  core.bool emailVerified;
 
-  /** user's id at the site */
+  /** The local ID of the user. */
   core.String localId;
 
-  /** password */
-  core.String password;
+  /** The user's hashed password. */
+  core.String passwordHash;
 
-  /** salt */
+  /** The timestamp when the password was last updated. */
+  core.num passwordUpdatedAt;
+
+  /** The URL of the user profile photo. */
+  core.String photoUrl;
+
+  /** The IDP of the user. */
+  core.List<UserInfoProviderUserInfo> providerUserInfo;
+
+  /** The user's password salt. */
   core.String salt;
 
-  /** Create new Userinfo from JSON data */
-  Userinfo.fromJson(core.Map json) {
+  /** Version of the user's password. */
+  core.int version;
+
+  /** Create new UserInfo from JSON data */
+  UserInfo.fromJson(core.Map json) {
+    if (json.containsKey("displayName")) {
+      displayName = json["displayName"];
+    }
     if (json.containsKey("email")) {
       email = json["email"];
     }
-    if (json.containsKey("kind")) {
-      kind = json["kind"];
+    if (json.containsKey("emailVerified")) {
+      emailVerified = json["emailVerified"];
     }
     if (json.containsKey("localId")) {
       localId = json["localId"];
     }
-    if (json.containsKey("password")) {
-      password = json["password"];
+    if (json.containsKey("passwordHash")) {
+      passwordHash = json["passwordHash"];
+    }
+    if (json.containsKey("passwordUpdatedAt")) {
+      passwordUpdatedAt = json["passwordUpdatedAt"];
+    }
+    if (json.containsKey("photoUrl")) {
+      photoUrl = json["photoUrl"];
+    }
+    if (json.containsKey("providerUserInfo")) {
+      providerUserInfo = json["providerUserInfo"].map((providerUserInfoItem) => new UserInfoProviderUserInfo.fromJson(providerUserInfoItem)).toList();
     }
     if (json.containsKey("salt")) {
       salt = json["salt"];
     }
+    if (json.containsKey("version")) {
+      version = json["version"];
+    }
   }
 
-  /** Create JSON Object for Userinfo */
+  /** Create JSON Object for UserInfo */
   core.Map toJson() {
     var output = new core.Map();
 
+    if (displayName != null) {
+      output["displayName"] = displayName;
+    }
     if (email != null) {
       output["email"] = email;
     }
-    if (kind != null) {
-      output["kind"] = kind;
+    if (emailVerified != null) {
+      output["emailVerified"] = emailVerified;
     }
     if (localId != null) {
       output["localId"] = localId;
     }
-    if (password != null) {
-      output["password"] = password;
+    if (passwordHash != null) {
+      output["passwordHash"] = passwordHash;
+    }
+    if (passwordUpdatedAt != null) {
+      output["passwordUpdatedAt"] = passwordUpdatedAt;
+    }
+    if (photoUrl != null) {
+      output["photoUrl"] = photoUrl;
+    }
+    if (providerUserInfo != null) {
+      output["providerUserInfo"] = providerUserInfo.map((providerUserInfoItem) => providerUserInfoItem.toJson()).toList();
     }
     if (salt != null) {
       output["salt"] = salt;
+    }
+    if (version != null) {
+      output["version"] = version;
     }
 
     return output;
   }
 
-  /** Return String representation of Userinfo */
+  /** Return String representation of UserInfo */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
+class UserInfoProviderUserInfo {
+
+  /** The user's display name at the IDP. */
+  core.String displayName;
+
+  /** User's identifier at IDP. */
+  core.String federatedId;
+
+  /** The user's photo url at the IDP. */
+  core.String photoUrl;
+
+  /** The IdP ID. For white listed IdPs it's a short domain name, e.g., google.com, aol.com, live.net and yahoo.com. For other OpenID IdPs it's the OP identifier. */
+  core.String providerId;
+
+  /** Create new UserInfoProviderUserInfo from JSON data */
+  UserInfoProviderUserInfo.fromJson(core.Map json) {
+    if (json.containsKey("displayName")) {
+      displayName = json["displayName"];
+    }
+    if (json.containsKey("federatedId")) {
+      federatedId = json["federatedId"];
+    }
+    if (json.containsKey("photoUrl")) {
+      photoUrl = json["photoUrl"];
+    }
+    if (json.containsKey("providerId")) {
+      providerId = json["providerId"];
+    }
+  }
+
+  /** Create JSON Object for UserInfoProviderUserInfo */
+  core.Map toJson() {
+    var output = new core.Map();
+
+    if (displayName != null) {
+      output["displayName"] = displayName;
+    }
+    if (federatedId != null) {
+      output["federatedId"] = federatedId;
+    }
+    if (photoUrl != null) {
+      output["photoUrl"] = photoUrl;
+    }
+    if (providerId != null) {
+      output["providerId"] = providerId;
+    }
+
+    return output;
+  }
+
+  /** Return String representation of UserInfoProviderUserInfo */
   core.String toString() => JSON.encode(this.toJson());
 
 }
@@ -1578,6 +1541,9 @@ class VerifyPasswordResponse {
   /** The RP local ID if it's already been mapped to the IdP account identified by the federated ID. */
   core.String localId;
 
+  /** The URI of the user's photo at IdP */
+  core.String photoUrl;
+
   /** Whether the email is registered. */
   core.bool registered;
 
@@ -1597,6 +1563,9 @@ class VerifyPasswordResponse {
     }
     if (json.containsKey("localId")) {
       localId = json["localId"];
+    }
+    if (json.containsKey("photoUrl")) {
+      photoUrl = json["photoUrl"];
     }
     if (json.containsKey("registered")) {
       registered = json["registered"];
@@ -1621,6 +1590,9 @@ class VerifyPasswordResponse {
     }
     if (localId != null) {
       output["localId"] = localId;
+    }
+    if (photoUrl != null) {
+      output["photoUrl"] = photoUrl;
     }
     if (registered != null) {
       output["registered"] = registered;
