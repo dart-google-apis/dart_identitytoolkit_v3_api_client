@@ -14,7 +14,7 @@ Adding dependency to pubspec.yaml
 
 ```
   dependencies:
-    google_identitytoolkit_v3_api: '>=0.4.4'
+    google_identitytoolkit_v3_api: '>=0.4.5'
 ```
 
 For web applications:

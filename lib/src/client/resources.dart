@@ -163,6 +163,35 @@ class RelyingpartyResource_ {
   }
 
   /**
+   * Get token signing public key.
+   *
+   * [optParams] - Additional query parameters
+   */
+  async.Future<IdentitytoolkitRelyingpartyGetPublicKeysResponse> getPublicKeys({core.Map optParams}) {
+    var url = "publicKeys";
+    var urlParams = new core.Map();
+    var queryParams = new core.Map();
+
+    var paramErrors = new core.List();
+    if (optParams != null) {
+      optParams.forEach((key, value) {
+        if (value != null && queryParams[key] == null) {
+          queryParams[key] = value;
+        }
+      });
+    }
+
+    if (!paramErrors.isEmpty) {
+      throw new core.ArgumentError(paramErrors.join(" / "));
+    }
+
+    var response;
+    response = _client.request(url, "GET", urlParams: urlParams, queryParams: queryParams);
+    return response
+      .then((data) => new IdentitytoolkitRelyingpartyGetPublicKeysResponse.fromJson(data));
+  }
+
+  /**
    * Set account info for a user.
    *
    * [request] - IdentitytoolkitRelyingpartyResetPasswordRequest to send in this request

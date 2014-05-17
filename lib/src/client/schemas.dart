@@ -423,6 +423,26 @@ class IdentitytoolkitRelyingpartyGetAccountInfoRequest {
 
 }
 
+/** Respone of getting public keys. */
+class IdentitytoolkitRelyingpartyGetPublicKeysResponse {
+
+  /** Create new IdentitytoolkitRelyingpartyGetPublicKeysResponse from JSON data */
+  IdentitytoolkitRelyingpartyGetPublicKeysResponse.fromJson(core.Map json) {
+  }
+
+  /** Create JSON Object for IdentitytoolkitRelyingpartyGetPublicKeysResponse */
+  core.Map toJson() {
+    var output = new core.Map();
+
+
+    return output;
+  }
+
+  /** Return String representation of IdentitytoolkitRelyingpartyGetPublicKeysResponse */
+  core.String toString() => JSON.encode(this.toJson());
+
+}
+
 /** Request to reset the password. */
 class IdentitytoolkitRelyingpartyResetPasswordRequest {
 
