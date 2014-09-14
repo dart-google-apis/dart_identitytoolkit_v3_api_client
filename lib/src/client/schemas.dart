@@ -6,14 +6,14 @@ class CreateAuthUriResponse {
   /** The URI used by the IDP to authenticate the user. */
   core.String authUri;
 
+  /** True if the authUri is for user's existing provider. */
+  core.bool forExistingProvider;
+
   /** The fixed string identitytoolkit#CreateAuthUriResponse". */
   core.String kind;
 
   /** The provider ID of the auth URI. */
   core.String providerId;
-
-  /** Existing IDP's for the user. */
-  core.List<core.String> providers;
 
   /** Whether the user is registered if the identifier is an email. */
   core.bool registered;
@@ -23,14 +23,14 @@ class CreateAuthUriResponse {
     if (json.containsKey("authUri")) {
       authUri = json["authUri"];
     }
+    if (json.containsKey("forExistingProvider")) {
+      forExistingProvider = json["forExistingProvider"];
+    }
     if (json.containsKey("kind")) {
       kind = json["kind"];
     }
     if (json.containsKey("providerId")) {
       providerId = json["providerId"];
-    }
-    if (json.containsKey("providers")) {
-      providers = json["providers"].toList();
     }
     if (json.containsKey("registered")) {
       registered = json["registered"];
@@ -44,14 +44,14 @@ class CreateAuthUriResponse {
     if (authUri != null) {
       output["authUri"] = authUri;
     }
+    if (forExistingProvider != null) {
+      output["forExistingProvider"] = forExistingProvider;
+    }
     if (kind != null) {
       output["kind"] = kind;
     }
     if (providerId != null) {
       output["providerId"] = providerId;
-    }
-    if (providers != null) {
-      output["providers"] = providers.toList();
     }
     if (registered != null) {
       output["registered"] = registered;
@@ -621,14 +621,19 @@ class IdentitytoolkitRelyingpartySetAccountInfoRequest {
 /** Request to upload user account in batch. */
 class IdentitytoolkitRelyingpartyUploadAccountRequest {
 
+  /** The password hash algorithm. */
   core.String hashAlgorithm;
 
+  /** Memory cost for hash calculation. Used by scrypt similar algorithms. */
   core.int memoryCost;
 
+  /** Rounds for hash calculation. Used by scrypt and similar algorithms. */
   core.int rounds;
 
+  /** The salt separator. */
   core.String saltSeparator;
 
+  /** The key for to hash the password. */
   core.String signerKey;
 
   /** The account info to be stored. */

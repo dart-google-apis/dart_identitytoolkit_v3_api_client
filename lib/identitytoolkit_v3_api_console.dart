@@ -7,6 +7,7 @@ import 'package:google_identitytoolkit_v3_api/src/console_client.dart';
 import "package:google_identitytoolkit_v3_api/identitytoolkit_v3_api_client.dart";
 
 /** Help the third party sites to implement federated login. */
+@deprecated
 class Identitytoolkit extends Client with ConsoleClient {
 
   final oauth2.OAuth2Console auth;
